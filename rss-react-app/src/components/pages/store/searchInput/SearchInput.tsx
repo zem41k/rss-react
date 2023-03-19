@@ -17,7 +17,7 @@ export default class SearchInput extends Component<ISearchInputProps, ISearchInp
     };
   }
 
-  handelSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+  handelSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     this.setState({ searchValue: event.target.value }, () =>
       this.props.searchProducts(this.state.searchValue)
     );
@@ -28,7 +28,9 @@ export default class SearchInput extends Component<ISearchInputProps, ISearchInp
   }
 
   componentDidMount() {
-    this.setState({ searchValue: localStorage.getItem('search') || '' });
+    this.setState({ searchValue: localStorage.getItem('search') || '' }, () => {
+      this.props.searchProducts(this.state.searchValue);
+    });
   }
 
   render() {
