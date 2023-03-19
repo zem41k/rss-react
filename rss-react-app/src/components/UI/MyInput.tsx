@@ -1,10 +1,5 @@
 import React from 'react';
 
-interface MyInputProps {
-  placeholder: string;
-  className: string;
-}
-
-export default function MyInput({ placeholder, className }: MyInputProps) {
-  return <input type="text" placeholder={placeholder} className={className} />;
+export default function MyInput(props: React.AllHTMLAttributes<HTMLInputElement>) {
+  return <input type="text" {...props} />;
 }

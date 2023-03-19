@@ -1,19 +1,36 @@
 import React, { Component } from 'react';
 import ProductList from './productList/ProductList';
+import SearchInput from './searchInput/SearchInput';
 import data from '../../../data/data.json';
-import MyInput from '../../UI/MyInput';
+import { IProduct } from 'types/types';
 
-export default class Store extends Component {
+interface IStoreState {
+  products: IProduct[];
+}
+
+export default class Store extends Component<object, IStoreState> {
+  state = {
+    products: data,
+  };
+
+  searchProducts = (value: string) => {
+    this.setState({
+      products: data.filter((product) => product.title.toLowerCase().includes(value.toLowerCase())),
+    });
+  };
+
   render() {
+    const { products } = this.state;
+
     return (
-      <>
+      <section className="main__section products">
         <div className="products__form">
-          <MyInput placeholder="Search" className="products__search" />
+          <SearchInput searchProducts={this.searchProducts} />
         </div>
         <div className="products__list">
-          <ProductList products={data} />
+          <ProductList products={products} />
         </div>
-      </>
+      </section>
     );
   }
 }
