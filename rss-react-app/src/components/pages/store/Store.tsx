@@ -28,7 +28,7 @@ export default class Store extends Component<object, IStoreState> {
           <SearchInput searchProducts={this.searchProducts} />
         </div>
         <div className="products__list">
-          <ProductList products={products} />
+          {products.length ? <ProductList products={products} /> : <h2>Товары не найдены</h2>}
         </div>
       </section>
     );

@@ -38,6 +38,7 @@ export default class SearchInput extends Component<ISearchInputProps, ISearchInp
     return (
       <>
         <MyInput
+          type="search"
           placeholder="Search"
           className="products__search"
           value={searchValue}
