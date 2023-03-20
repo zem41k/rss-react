@@ -7,7 +7,7 @@ interface IProductItemProps {
 
 export default function ProductItem({ product }: IProductItemProps) {
   return (
-    <div className="products__item product">
+    <div className="products__item product" data-testid="product">
       <div className="product__img-box">
         <img src={product.image} alt="photo" />
       </div>
