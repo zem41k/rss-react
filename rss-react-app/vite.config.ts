@@ -16,6 +16,7 @@ export default defineConfig({
       include: ['src/**/*'],
       exclude: ['src/main.tsx', 'src/types/*', 'src/vite-env.d.ts'],
       enabled: true,
+      reporter: ['text'],
       all: true,
     },
   },
