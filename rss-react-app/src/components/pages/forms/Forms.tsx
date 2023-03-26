@@ -3,7 +3,9 @@ import Form from './Form';
 import UserList from './UserList';
 
 export default class Forms extends Component {
-  state = {};
+  state = {
+    cards: [],
+  };
 
   render() {
     return (
