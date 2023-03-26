@@ -1,10 +1,11 @@
 import React, { Component, FormEvent } from 'react';
+import { IUser } from 'types/types';
 
-interface IFormProps {
-  addCard: (event: MouseEvent) => void;
-}
+type IFormProps = {
+  addUser: (user: IUser) => void;
+};
 
-export default class Form extends Component {
+export default class Form extends Component<IFormProps> {
   constructor(props: IFormProps) {
     super(props);
   }
@@ -20,15 +21,19 @@ export default class Form extends Component {
 
   handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    console.log('Hello');
-    console.log(this.firstNameRef.current?.value);
-    console.log(this.lastNameRef.current?.value);
-    console.log(this.dateOfBirthRef.current?.value);
-    console.log(this.countryRef.current?.value);
-    console.log(this.maleRef.current?.checked);
-    console.log(this.femaleRef.current?.checked);
-    console.log(this.photoRef.current?.value);
-    console.log(this.agreementRef.current?.checked);
+    const gender: string = this.maleRef.current?.checked ? 'male' : 'female';
+    const newUser: IUser = {
+      id: new Date().getTime().toString(),
+      firstName: this.firstNameRef.current?.value,
+      lastName: this.lastNameRef.current?.value,
+      dateOfBirth: this.dateOfBirthRef.current?.value,
+      country: this.countryRef.current?.value,
+      gender: gender,
+      photo: this.photoRef.current?.value,
+      agreement: this.agreementRef.current?.checked,
+    };
+    console.log(newUser);
+    this.props.addUser(newUser);
   };
 
   render() {
@@ -74,7 +79,14 @@ export default class Form extends Component {
         </div>
         <div>
           <div>
-            <input type="radio" name="gender" id="male" value="male" ref={this.maleRef} />
+            <input
+              type="radio"
+              name="gender"
+              id="male"
+              value="male"
+              ref={this.maleRef}
+              defaultChecked
+            />
             <label htmlFor="male"> Male </label>
           </div>
           <div>

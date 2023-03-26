@@ -10,3 +10,14 @@ export interface IProduct {
     count: number;
   };
 }
+
+export interface IUser {
+  id?: string;
+  firstName?: string;
+  lastName?: string;
+  dateOfBirth?: string;
+  country?: string;
+  gender: string;
+  photo?: string;
+  agreement?: boolean;
+}
