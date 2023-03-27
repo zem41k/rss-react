@@ -60,11 +60,26 @@ export default class Form extends Component<IFormProps, IFormState> {
   }
 
   validatePhoto() {
-    // const photoInputValue = this.photoRef.current!.files![0];
+    const photoInputValue = this.photoRef.current!.files![0];
+    const isValidPhoto = photoInputValue !== undefined;
+    this.setState({ isValidPhoto });
+    return isValidPhoto;
+  }
+
+  validateAgreement() {
+    const agreementValue = this.agreementRef.current!.checked;
+    this.setState({ isAgreement: agreementValue });
+    return agreementValue;
   }
 
   validateForm() {
-    const isValidForm = [this.validateFirstName()].every((item) => item === true);
+    const isValidForm = [
+      this.validateFirstName(),
+      this.validateLastName(),
+      this.validateDateInput(),
+      this.validatePhoto(),
+      this.validateAgreement(),
+    ].every((item) => item === true);
     return isValidForm;
   }
 
@@ -78,7 +93,7 @@ export default class Form extends Component<IFormProps, IFormState> {
       dateOfBirth: this.dateOfBirthRef.current?.value,
       country: this.countryRef.current?.value,
       gender: gender,
-      photo: this.photoRef.current?.value,
+      photo: this.photoRef.current!.files![0],
       agreement: this.agreementRef.current?.checked,
     };
     console.log(newUser);

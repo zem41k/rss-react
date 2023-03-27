@@ -18,6 +18,6 @@ export interface IUser {
   dateOfBirth?: string;
   country?: string;
   gender: string;
-  photo?: string;
+  photo: File;
   agreement?: boolean;
 }
