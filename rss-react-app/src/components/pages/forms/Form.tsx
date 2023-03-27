@@ -5,11 +5,31 @@ type IFormProps = {
   addUser: (user: IUser) => void;
 };
 
-export default class Form extends Component<IFormProps> {
+type IFormState = {
+  isValidFirstname: boolean;
+  isValidLastname: boolean;
+  isValidDateInput: boolean;
+  isValidCountry: boolean;
+  isValidGender: boolean;
+  isValidPhoto: boolean;
+  isAgreement: boolean;
+};
+
+export default class Form extends Component<IFormProps, IFormState> {
   constructor(props: IFormProps) {
     super(props);
+    this.state = {
+      isValidFirstname: true,
+      isValidLastname: true,
+      isValidDateInput: true,
+      isValidCountry: true,
+      isValidGender: true,
+      isValidPhoto: true,
+      isAgreement: true,
+    };
   }
 
+  formRef = React.createRef<HTMLFormElement>();
   firstNameRef = React.createRef<HTMLInputElement>();
   lastNameRef = React.createRef<HTMLInputElement>();
   dateOfBirthRef = React.createRef<HTMLInputElement>();
@@ -18,6 +38,35 @@ export default class Form extends Component<IFormProps> {
   femaleRef = React.createRef<HTMLInputElement>();
   photoRef = React.createRef<HTMLInputElement>();
   agreementRef = React.createRef<HTMLInputElement>();
+
+  validateFirstName() {
+    const firstNameValue = this.firstNameRef.current?.value;
+    const isValidFirstname = firstNameValue?.trim() !== '' && firstNameValue!.length > 3;
+    this.setState({ isValidFirstname });
+    return isValidFirstname;
+  }
+  validateLastName() {
+    const lastNameValue = this.lastNameRef.current?.value;
+    const isValidLastname = lastNameValue?.trim() !== '' && lastNameValue!.length > 3;
+    this.setState({ isValidLastname });
+    return isValidLastname;
+  }
+
+  validateDateInput() {
+    const dateInputValue = this.dateOfBirthRef.current?.value;
+    const isValidDate = dateInputValue !== '';
+    this.setState({ isValidDateInput: isValidDate });
+    return isValidDate;
+  }
+
+  validatePhoto() {
+    // const photoInputValue = this.photoRef.current!.files![0];
+  }
+
+  validateForm() {
+    const isValidForm = [this.validateFirstName()].every((item) => item === true);
+    return isValidForm;
+  }
 
   handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -33,12 +82,17 @@ export default class Form extends Component<IFormProps> {
       agreement: this.agreementRef.current?.checked,
     };
     console.log(newUser);
-    this.props.addUser(newUser);
+    console.log(this.state);
+    if (this.validateForm()) {
+      this.props.addUser(newUser);
+      this.formRef.current?.reset();
+    }
+    console.log(this.photoRef.current?.files);
   };
 
   render() {
     return (
-      <form className="form" onSubmit={this.handleSubmit}>
+      <form className="form" onSubmit={this.handleSubmit} ref={this.formRef}>
         <div className="form__input-box">
           <label htmlFor="firstName">First name:</label>
           <input

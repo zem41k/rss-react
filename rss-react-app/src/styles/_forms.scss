@@ -35,3 +35,28 @@
     font-weight: 700;
   }
 }
+
+.users {
+  &__list {
+    display: flex;
+    margin-top: 30px;
+  }
+
+  &__item {
+    width: 250px;
+    padding: 10px;
+    border: 1px solid black;
+  }
+}
+
+.user {
+  *:not(:last-child) {
+    margin-bottom: 7px;
+  }
+
+  &__name {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    padding-bottom: 10px;
+  }
+}
