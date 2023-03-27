@@ -117,6 +117,9 @@ export default class Form extends Component<IFormProps, IFormState> {
             className="form__input-text"
             ref={this.firstNameRef}
           />
+          <span className="form__error" hidden={this.state.isValidFirstname}>
+            Please enter your name
+          </span>
         </div>
         <div className="form__input-box">
           <label htmlFor="lastName">Last name:</label>
@@ -127,6 +130,9 @@ export default class Form extends Component<IFormProps, IFormState> {
             className="form__input-text"
             ref={this.lastNameRef}
           />
+          <span className="form__error" hidden={this.state.isValidLastname}>
+            Please enter your lastname
+          </span>
         </div>
         <div className="form__input-box">
           <label htmlFor="bday">Date of birth:</label>
@@ -137,6 +143,9 @@ export default class Form extends Component<IFormProps, IFormState> {
             className="form__input-date"
             ref={this.dateOfBirthRef}
           />
+          <span className="form__error" hidden={this.state.isValidDateInput}>
+            Please enter your bday
+          </span>
         </div>
         <div className="form__input-box">
           <label htmlFor="country">Country:</label>
@@ -166,10 +175,18 @@ export default class Form extends Component<IFormProps, IFormState> {
         <div className="form__input-box">
           <label htmlFor="photo">Upload photo</label>
           <input type="file" name="photo" id="photo" ref={this.photoRef} />
+          <span className="form__error" hidden={this.state.isValidPhoto}>
+            Please upload your photo
+          </span>
         </div>
-        <div>
+        <div className="form__check-box">
           <input type="checkbox" name="agreement" id="agreement" ref={this.agreementRef} />
           <label htmlFor="agreement"> I agree to data processing</label>
+          <div>
+            <span className="form__error" hidden={this.state.isAgreement}>
+              Please argree with data processing
+            </span>
+          </div>
         </div>
         <button className="form__submit-btn">Submit</button>
       </form>

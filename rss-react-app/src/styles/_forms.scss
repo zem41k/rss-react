@@ -12,9 +12,23 @@
   }
 
   &__input-box {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 4px;
+  }
+
+  &__check-box {
+    position: relative;
+  }
+
+  &__error {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: red;
+    position: absolute;
+    bottom: -15px;
   }
 
   &__input-text,
