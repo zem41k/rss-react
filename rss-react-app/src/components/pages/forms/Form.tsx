@@ -13,6 +13,7 @@ type IFormState = {
   isValidGender: boolean;
   isValidPhoto: boolean;
   isAgreement: boolean;
+  isPopapShow: boolean;
 };
 
 export default class Form extends Component<IFormProps, IFormState> {
@@ -26,6 +27,7 @@ export default class Form extends Component<IFormProps, IFormState> {
       isValidGender: true,
       isValidPhoto: true,
       isAgreement: true,
+      isPopapShow: false,
     };
   }
 
@@ -99,6 +101,10 @@ export default class Form extends Component<IFormProps, IFormState> {
     console.log(newUser);
     console.log(this.state);
     if (this.validateForm()) {
+      this.setState({ isPopapShow: true });
+      setTimeout(() => {
+        this.setState({ isPopapShow: false });
+      }, 2000);
       this.props.addUser(newUser);
       this.formRef.current?.reset();
     }
@@ -107,89 +113,94 @@ export default class Form extends Component<IFormProps, IFormState> {
 
   render() {
     return (
-      <form className="form" onSubmit={this.handleSubmit} ref={this.formRef}>
-        <div className="form__input-box">
-          <label htmlFor="firstName">First name:</label>
-          <input
-            type="text"
-            name="firstName"
-            id="firstName"
-            className="form__input-text"
-            ref={this.firstNameRef}
-          />
-          <span className="form__error" hidden={this.state.isValidFirstname}>
-            Please enter your name
-          </span>
-        </div>
-        <div className="form__input-box">
-          <label htmlFor="lastName">Last name:</label>
-          <input
-            type="text"
-            name="lastName"
-            id="lastName"
-            className="form__input-text"
-            ref={this.lastNameRef}
-          />
-          <span className="form__error" hidden={this.state.isValidLastname}>
-            Please enter your lastname
-          </span>
-        </div>
-        <div className="form__input-box">
-          <label htmlFor="bday">Date of birth:</label>
-          <input
-            type="date"
-            name="bday"
-            id="bday"
-            className="form__input-date"
-            ref={this.dateOfBirthRef}
-          />
-          <span className="form__error" hidden={this.state.isValidDateInput}>
-            Please enter your bday
-          </span>
-        </div>
-        <div className="form__input-box">
-          <label htmlFor="country">Country:</label>
-          <select name="country" id="country" className="form__input-text" ref={this.countryRef}>
-            <option value="Russia">Russia</option>
-            <option value="Belarus">Belarus</option>
-            <option value="China">China</option>
-          </select>
-        </div>
-        <div>
-          <div>
+      <>
+        <form className="form" onSubmit={this.handleSubmit} ref={this.formRef}>
+          <div className="form__input-box">
+            <label htmlFor="firstName">First name:</label>
             <input
-              type="radio"
-              name="gender"
-              id="male"
-              value="male"
-              ref={this.maleRef}
-              defaultChecked
+              type="text"
+              name="firstName"
+              id="firstName"
+              className="form__input-text"
+              ref={this.firstNameRef}
             />
-            <label htmlFor="male"> Male </label>
-          </div>
-          <div>
-            <input type="radio" name="gender" id="female" value="female" ref={this.femaleRef} />
-            <label htmlFor="female"> Female </label>
-          </div>
-        </div>
-        <div className="form__input-box">
-          <label htmlFor="photo">Upload photo</label>
-          <input type="file" name="photo" id="photo" ref={this.photoRef} />
-          <span className="form__error" hidden={this.state.isValidPhoto}>
-            Please upload your photo
-          </span>
-        </div>
-        <div className="form__check-box">
-          <input type="checkbox" name="agreement" id="agreement" ref={this.agreementRef} />
-          <label htmlFor="agreement"> I agree to data processing</label>
-          <div>
-            <span className="form__error" hidden={this.state.isAgreement}>
-              Please argree with data processing
+            <span className="form__error" hidden={this.state.isValidFirstname}>
+              Please enter your name
             </span>
           </div>
+          <div className="form__input-box">
+            <label htmlFor="lastName">Last name:</label>
+            <input
+              type="text"
+              name="lastName"
+              id="lastName"
+              className="form__input-text"
+              ref={this.lastNameRef}
+            />
+            <span className="form__error" hidden={this.state.isValidLastname}>
+              Please enter your lastname
+            </span>
+          </div>
+          <div className="form__input-box">
+            <label htmlFor="bday">Date of birth:</label>
+            <input
+              type="date"
+              name="bday"
+              id="bday"
+              className="form__input-date"
+              ref={this.dateOfBirthRef}
+            />
+            <span className="form__error" hidden={this.state.isValidDateInput}>
+              Please enter your bday
+            </span>
+          </div>
+          <div className="form__input-box">
+            <label htmlFor="country">Country:</label>
+            <select name="country" id="country" className="form__input-text" ref={this.countryRef}>
+              <option value="Russia">Russia</option>
+              <option value="Belarus">Belarus</option>
+              <option value="China">China</option>
+            </select>
+          </div>
+          <div>
+            <div>
+              <input
+                type="radio"
+                name="gender"
+                id="male"
+                value="male"
+                ref={this.maleRef}
+                defaultChecked
+              />
+              <label htmlFor="male"> Male </label>
+            </div>
+            <div>
+              <input type="radio" name="gender" id="female" value="female" ref={this.femaleRef} />
+              <label htmlFor="female"> Female </label>
+            </div>
+          </div>
+          <div className="form__input-box">
+            <label htmlFor="photo">Upload photo</label>
+            <input type="file" name="photo" id="photo" ref={this.photoRef} />
+            <span className="form__error" hidden={this.state.isValidPhoto}>
+              Please upload your photo
+            </span>
+          </div>
+          <div className="form__check-box">
+            <input type="checkbox" name="agreement" id="agreement" ref={this.agreementRef} />
+            <label htmlFor="agreement"> I agree to data processing</label>
+            <div>
+              <span className="form__error" hidden={this.state.isAgreement}>
+                Please argree with data processing
+              </span>
+            </div>
+          </div>
+          <button className="form__submit-btn">Submit</button>
+        </form>
+        <div className="message" hidden={!this.state.isPopapShow}>
+          User add sucess!
         </div>
-        <button className="form__submit-btn">Submit</button>
-      </form>
+      </>
     );
   }
 }
