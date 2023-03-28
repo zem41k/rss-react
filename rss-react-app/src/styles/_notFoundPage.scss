@@ -1,0 +1,19 @@
+@import './_variables.scss';
+
+.img404-box {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.btn-404 {
+  display: block;
+  margin: 0 auto;
+  width: 150px;
+  height: 40px;
+  border: 3px solid rgb(34, 34, 120);
+  border-radius: 9px;
+  font-size: 18px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(34, 34, 120);
+  background-color: transparent;
+}
