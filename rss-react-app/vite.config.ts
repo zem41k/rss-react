@@ -15,7 +15,8 @@ export default defineConfig({
     coverage: {
       include: ['src/**/*'],
       exclude: ['src/main.tsx', 'src/types/*', 'src/vite-env.d.ts'],
-      enabled: true,
+      provider: 'istanbul',
+      // enabled: true,
       reporter: ['text'],
       all: true,
     },
