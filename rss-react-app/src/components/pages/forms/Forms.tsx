@@ -23,6 +23,7 @@ export default class Forms extends Component {
   render() {
     return (
       <>
+        <h2 className="forms__title">Add user</h2>
         <Form addUser={this.addUser} />
         <UserList users={this.state.users} />
       </>
