@@ -1,0 +1,113 @@
+.forms {
+  &__title {
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: rgb(48, 48, 145);
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  padding: 20px;
+  border: 1px solid black;
+  font-size: 18px;
+  margin: 0 auto;
+
+  &>*:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  &__input-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__check-box {
+    position: relative;
+  }
+
+  &__error {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: red;
+    position: absolute;
+    bottom: -15px;
+  }
+
+  &__input-text,
+  &__input-date {
+    font-size: 18px;
+    width: 70%;
+    height: 25px;
+    border-bottom: 2px solid rgb(167, 167, 167);
+    padding-left: 5px;
+  }
+
+  &__submit-btn {
+    width: 80px;
+    height: 30px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 2px black;
+    font-size: 18px;
+    font-weight: 700;
+  }
+}
+
+.users {
+  &__list {
+    display: flex;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+
+  &__item {
+    width: 250px;
+    padding: 10px;
+    border: 1px solid black;
+  }
+}
+
+.user {
+  *:not(:last-child) {
+    margin-bottom: 7px;
+  }
+
+  &__name {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    padding-bottom: 10px;
+  }
+
+  &__photo-box {
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__photo {
+    max-width: 100%;
+    // object-fit: cover;
+  }
+}
+
+.message {
+  position: absolute;
+  top: 90px;
+  right: 50px;
+  padding: 8px 12px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+  background-color: green;
+  border-radius: 3px;
+}
