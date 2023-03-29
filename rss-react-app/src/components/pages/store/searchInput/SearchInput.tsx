@@ -1,50 +1,35 @@
 import MyInput from '../../../UI/MyInput';
-import React, { Component } from 'react';
-
-interface ISearchInputState {
-  searchValue: string;
-}
+import React, { useEffect, useState } from 'react';
 
 interface ISearchInputProps {
   searchProducts: (value: string) => void;
 }
 
-export default class SearchInput extends Component<ISearchInputProps, ISearchInputState> {
-  constructor(props: ISearchInputProps) {
-    super(props);
-    this.state = {
-      searchValue: '',
-    };
-  }
+export default function SearchInput(props: ISearchInputProps) {
+  const [searchValue, setSearchValue] = useState(localStorage.getItem('search') || '');
+  const { searchProducts } = props;
 
-  handelSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState({ searchValue: event.target.value }, () =>
-      this.props.searchProducts(this.state.searchValue)
-    );
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setSearchValue(event.target.value);
   };
 
-  componentWillUnmount() {
-    localStorage.setItem('search', this.state.searchValue);
-  }
+  useEffect(() => {
+    searchProducts(searchValue);
+    return () => {
+      localStorage.setItem('search', searchValue);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValue]);
 
-  componentDidMount() {
-    this.setState({ searchValue: localStorage.getItem('search') || '' }, () => {
-      this.props.searchProducts(this.state.searchValue);
-    });
-  }
-
-  render() {
-    const { searchValue } = this.state;
-    return (
-      <>
-        <MyInput
-          type="search"
-          placeholder="Search"
-          className="products__search"
-          value={searchValue}
-          onChange={this.handelSearch}
-        />
-      </>
-    );
-  }
+  return (
+    <>
+      <MyInput
+        type="search"
+        placeholder="Search"
+        className="products__search"
+        value={searchValue}
+        onChange={handleSearch}
+      />
+    </>
+  );
 }
