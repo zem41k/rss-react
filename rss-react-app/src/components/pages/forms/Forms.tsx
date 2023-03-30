@@ -1,32 +1,20 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { IUser } from 'types/types';
 import Form from './Form';
 import UserList from './UserList';
 
-type FormState = {
-  users: IUser[];
-};
+export default function Forms() {
+  const [users, setUsers] = useState<IUser[]>([]);
 
-export default class Forms extends Component {
-  state: FormState = {
-    users: [],
+  const addUser = (user: IUser) => {
+    setUsers([...users, user]);
   };
 
-  addUser = (user: IUser) => {
-    this.setState({ users: [...this.state.users, user] });
-  };
-
-  componentDidUpdate() {
-    console.log(this.state);
-  }
-
-  render() {
-    return (
-      <>
-        <h2 className="forms__title">Add user</h2>
-        <Form addUser={this.addUser} />
-        <UserList users={this.state.users} />
-      </>
-    );
-  }
+  return (
+    <>
+      <h2 className="forms__title">Add user</h2>
+      <Form addUser={addUser} />
+      <UserList users={users} />
+    </>
+  );
 }
