@@ -11,6 +11,9 @@ type FormData = {
   firstName: string;
   lastName: string;
   bday: string;
+  country: string;
+  gender: string;
+  photo: FileList;
 };
 
 export default function Form(props: IFormProps) {
@@ -78,8 +81,53 @@ export default function Form(props: IFormProps) {
           className="form__input-date"
           {...register('bday', {
             required: 'Please, enter your bday',
+            validate: {
+              notFutureDate: (date) =>
+                new Date(date).getTime() < new Date().getTime() || 'Enter corret bday date',
+            },
           })}
         />
+        {errors?.bday && <span className="form__error">{errors?.bday.message || 'Error'}</span>}
+      </div>
+
+      <div className="form__input-box">
+        <label htmlFor="country">Country:</label>
+        <select {...register('country')} id="country" className="form__input-text">
+          <option value="Russia">Russia</option>
+          <option value="Belarus">Belarus</option>
+          <option value="China">China</option>
+        </select>
+      </div>
+
+      <div className="form__input-radio-box">
+        <div>
+          <input
+            {...register('gender', {
+              required: 'Enter your gender',
+            })}
+            type="radio"
+            id="male"
+            value="male"
+          />
+          <label htmlFor="male"> Male </label>
+        </div>
+        <div>
+          <input
+            {...register('gender', {
+              required: 'Enter your gender',
+            })}
+            type="radio"
+            id="female"
+            value="female"
+          />
+          <label htmlFor="female"> Female </label>
+        </div>
+        {errors?.gender && <span className="form__error">{errors?.gender.message || 'Error'}</span>}
+      </div>
+
+      <div className="form__input-box">
+        <label htmlFor="photo">Upload photo</label>
+        <input {...register('photo')} type="file" id="photo" />
       </div>
 
       <button className="form__submit-btn">Submit</button>
